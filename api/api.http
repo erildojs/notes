@@ -1,0 +1,54 @@
+# @name createUser
+POST http://localhost:3333/users
+Content-Type: application/json
+
+{
+  "name": "erik",
+  "email": "erik@gmail.com",
+  "password": "123"
+}
+
+###
+
+@userId = {{ createUser.response.body.id }}
+
+###
+PUT http://localhost:3333/users/{{ userId }}
+Content-Type: application/json
+
+{
+  "name": "erik2",
+  "password": "1234",
+  "old_password": "123"
+}
+
+###
+
+@noteId = {{ createNote.response.body.id }}
+
+###
+POST http://localhost:3333/notes/1
+Content-Type: application/json
+
+{
+  "title": "notaaa",
+  "description": "descricao da nota",
+  "tags": ["node", "express"],
+  "links": ["link1", "link2"]
+}
+
+###
+GET http://localhost:3333/notes/1
+Content-Type: application/json
+
+###
+DELETE http://localhost:3333/notes/1
+Content-Type: application/json
+
+###
+GET http://localhost:3333/notes?user_id=1&title=nota&tags=express
+Content-Type: application/json
+
+###
+GET http://localhost:3333/tags/1
+Content-Type: application/json
